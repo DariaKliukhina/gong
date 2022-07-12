@@ -1,0 +1,25 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: $main-bg;
+  min-width: 360px;
+}
+
+.visually-hidden {
+  position: absolute;
+  opacity: 0;
+  clip: rect(0 0 0 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.hide {
+  position: absolute;
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+}

@@ -1,0 +1,15 @@
+$main-bg: #d1aef8;
+$leg-width: 34px;
+$leg-width-desktop: 38px;
+$gong-color: #ffefb8;
+$rope-color: #1d1d1a;
+$gong-border: #42413d;
+$leg-shadow: #a0725b;
+$leg-color: #b48868;
+$shadow-width: 4px;
+$shadow-width-desktop: 8px;
+// $tablet: 768px;
+$tablet: 540px;
+$desktop: 1150px;
+$min-width-tablet: "(min-width: #{$tablet})";
+$min-width-desktop: "(min-width: #{$desktop})";
