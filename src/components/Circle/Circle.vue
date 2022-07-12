@@ -1,17 +1,13 @@
 <template>
   <div class="circle animate__circle">
     <div class="circle__wrapper animate__circle-wrapper">
-      <button
-        @click="setActive"
-        id="gong-trigger"
-        type="button"
-        class="circle__main"
-      >
+      <button @click="setActive" type="button" class="circle__main">
         <span class="circle__body">
           <span class="circle__blick animate__blick"></span>
         </span>
       </button>
-      <audio ref="audio" id="audio" controls class="hide">
+
+      <audio @ended="$emit('end')" ref="audio" controls class="hide">
         <source src="./sounds/gong-chinese.mp3" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>

@@ -11,10 +11,6 @@ import Gong from "./components/Gong/Gong.vue";
 import Legs from "./components/Legs/Legs.vue";
 export default {
   components: { Legs, Gong },
-  data() {
-    return {};
-  },
-  methods: {},
 };
 </script>
 

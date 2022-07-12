@@ -1,15 +1,36 @@
 <template>
-  <section id="gong-wrapper" class="gong">
+  <section ref="wrapper" class="gong">
     <div class="gong__leg"></div>
     <div class="gong__leg"></div>
     <div class="gong__beam"></div>
     <div class="gong__beam gong__beam--small"></div>
     <slot />
+    <Stick :gongTop="gongTop" :gongRight="gongRight" />
   </section>
 </template>
 
 <script>
-export default {};
+import Stick from "../Stick/Stick.vue";
+export default {
+  components: { Stick },
+  data() {
+    return {
+      gongTop: 0,
+      gongRight: 0,
+    };
+  },
+  mounted() {
+    this.setSizes();
+    window.addEventListener("resize", this.setSizes);
+  },
+  methods: {
+    setSizes() {
+      const { top, right } = this.$refs.wrapper.getBoundingClientRect();
+      this.gongTop = top;
+      this.gongRight = right;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

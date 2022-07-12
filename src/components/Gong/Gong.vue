@@ -1,11 +1,11 @@
 <template>
-  <div id="gong-body" :class="`gong__body ${isActive && 'active'}`">
+  <div :class="`gong__body ${isActive && 'active'}`">
     <div class="gong__main animate">
       <span class="gong__ropes-container animate__ropes">
         <span class="gong__ropes"></span>
       </span>
 
-      <Circle @activate="setActive" />
+      <Circle @activate="setActive" @end="this.isActive = false" />
     </div>
   </div>
 </template>
@@ -23,10 +23,6 @@ export default {
     setActive() {
       if (!this.isActive) {
         this.isActive = true;
-
-        setTimeout(() => {
-          this.isActive = false;
-        }, 3000);
       }
     },
   },
