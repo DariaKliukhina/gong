@@ -5,7 +5,13 @@
     <div class="gong__beam"></div>
     <div class="gong__beam gong__beam--small"></div>
     <slot />
-    <Stick :gongTop="gongTop" :gongRight="gongRight" />
+    <Stick
+      :gongTop="gongTop"
+      :gongRight="gongRight"
+      :gongBottom="gongBottom"
+      :gongLeft="gongLeft"
+      :rightOffset="rightOffset"
+    />
   </section>
 </template>
 
@@ -17,17 +23,29 @@ export default {
     return {
       gongTop: 0,
       gongRight: 0,
+      bodyRight: 0,
     };
   },
   mounted() {
     this.setSizes();
     window.addEventListener("resize", this.setSizes);
   },
+  computed: {
+    rightOffset() {
+      return this.bodyRight - this.gongRight;
+    },
+  },
   methods: {
     setSizes() {
-      const { top, right } = this.$refs.wrapper.getBoundingClientRect();
+      const { top, right, bottom, left } =
+        this.$refs.wrapper.getBoundingClientRect();
       this.gongTop = top;
       this.gongRight = right;
+      this.gongBottom = bottom;
+      this.gongLeft = left;
+
+      const { right: bodyRight } = document.body.getBoundingClientRect();
+      this.bodyRight = bodyRight;
     },
   },
 };
