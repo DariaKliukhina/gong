@@ -1,8 +1,8 @@
 <template>
-  <div :class="`gong__body ${isActive && 'active'}`">
-    <div class="gong__main animate">
-      <span class="gong__ropes-container animate__ropes">
-        <span class="gong__ropes"></span>
+  <div :class="`gong-body ${isActive && 'active'}`">
+    <div :class="`gong-body__main ${isReady ? 'animate' : 'animate-small'}`">
+      <span class="gong-body__ropes-container animate-ropes">
+        <span class="gong-body__ropes"></span>
       </span>
       <Circle />
     </div>
@@ -18,115 +18,23 @@ export default {
     isActive() {
       return this.$store.state.isActive;
     },
+    isReady() {
+      return this.$store.state.isReady;
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../assets/animations.scss";
-.gong {
-  max-height: 800px;
-  min-height: 400px;
-  width: 100%;
-  max-width: 700px;
-  aspect-ratio: 1/1;
+.gong-body {
   position: relative;
+  flex-grow: 1;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding-top: 40px;
-
-  &__leg {
-    width: $leg-width;
-    height: 100%;
-    background-color: $leg-color;
-    position: absolute;
-    top: 0;
-    left: 40px;
-
-    @media #{$min-width-desktop} {
-      width: $leg-width-desktop;
-    }
-  }
-
-  &__leg::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: $shadow-width;
-    top: 0;
-    right: 0;
-    background-color: $leg-shadow;
-  }
-
-  &__leg::after {
-    content: "";
-    position: absolute;
-    height: $leg-width;
-    width: 80px;
-    background-color: $leg-shadow;
-    bottom: 0;
-    margin-top: 100%;
-    right: 0;
-
-    @media #{$min-width-desktop} {
-      height: $leg-width-desktop;
-    }
-  }
-
-  &__leg:nth-child(2) {
-    left: auto;
-    right: 40px;
-  }
-
-  &__leg:nth-child(2)::before {
-    left: 0;
-    right: auto;
-  }
-
-  &__leg:nth-child(2)::after {
-    left: 0;
-    right: auto;
-  }
-
-  &__beam {
-    width: 100%;
-    height: $leg-width;
-    background-color: $leg-color;
-    margin-bottom: 14px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-
-    @media #{$min-width-desktop} {
-      height: $leg-width-desktop;
-    }
-  }
-
-  &__beam::after {
-    content: "";
-    width: 100%;
-    height: $shadow-width;
-    background-color: $leg-shadow;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-  }
-
-  &__beam--small {
-    width: calc(100% - 20px);
-    margin-bottom: 0;
-  }
-
-  &__body {
-    position: relative;
-    flex-grow: 1;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 
   &__main {
     position: absolute;
@@ -189,7 +97,8 @@ export default {
   }
 }
 
-.animate {
+.animate,
+.animate-small {
   &__ropes {
     transform-origin: top center;
   }
@@ -197,9 +106,17 @@ export default {
 
 .active {
   .animate {
-    &__ropes {
-      animation-name: perspective-small;
+    .animate-ropes {
+      animation-name: perspective-ropes;
       animation-duration: 3s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in-out;
+    }
+  }
+  .animate-small {
+    .animate-ropes {
+      animation-name: perspective-ropes-small;
+      animation-duration: 1s;
       animation-iteration-count: 1;
       animation-timing-function: ease-in-out;
     }

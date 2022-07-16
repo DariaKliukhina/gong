@@ -64,8 +64,8 @@ export default {
       this.left = `${e.pageX - this.rightOffset}px`;
 
       if (
-        e.pageY - this.offset / 2 > this.gongBottom ||
-        e.pageY + this.offset / 2 < this.gongTop
+        e.pageY - this.offset > this.gongBottom ||
+        e.pageY + this.offset < this.gongTop
       ) {
         this.setAnimationTransition();
         this.$store.commit("prepare", false);
