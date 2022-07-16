@@ -7,16 +7,35 @@
         </span>
       </button>
 
-      <audio @ended="$emit('end')" ref="audio" controls class="hide">
-        <source src="./sounds/gong-chinese.mp3" type="audio/mpeg" />
+      <audio
+        v-if="isReady"
+        @ended="$emit('end')"
+        ref="audio"
+        controls
+        class="hide"
+      >
+        <source src="./sounds/bang.mp3" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
+      <audio v-else @ended="$emit('end')" ref="audio" controls class="hide">
+        <source src="./sounds/click.wav" type="audio/mpeg" />
+        Your browser does not support the audio tag.
+      </audio>
+      <!-- <AudioBlock source="./sounds/click.wav" @ended="$emit('end')" /> -->
     </div>
   </div>
 </template>
 
 <script>
+import AudioBlock from "../AudioBlock/AudioBlock.vue";
 export default {
+  components: { AudioBlock },
+  props: {
+    isReady: Boolean,
+  },
+  data() {
+    return {};
+  },
   methods: {
     setActive() {
       this.$refs.audio.play();
@@ -28,6 +47,12 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../assets/animations.scss";
+
+.ready {
+  .circle__main {
+    cursor: none;
+  }
+}
 
 .circle {
   position: absolute;

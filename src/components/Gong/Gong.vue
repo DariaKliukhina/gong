@@ -5,7 +5,11 @@
         <span class="gong__ropes"></span>
       </span>
 
-      <Circle @activate="setActive" @end="this.isActive = false" />
+      <Circle
+        @activate="setActive"
+        @end="this.isActive = false"
+        :isReady="isReady"
+      />
     </div>
   </div>
 </template>
@@ -14,6 +18,9 @@
 import Circle from "../Circle/Circle.vue";
 export default {
   components: { Circle },
+  props: {
+    isReady: Boolean,
+  },
   data() {
     return {
       isActive: false,

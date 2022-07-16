@@ -2,8 +2,8 @@
   <div
     @click="takeStick"
     ref="stick"
-    :style="`top: ${top}px; left: ${left}px; transition: ${transition}s`"
-    :class="`stick cursor ${isActive && 'active'}`"
+    :style="`top: ${top}; left: ${left}; transition: ${transition}s`"
+    :class="`stick cursor ${isReady && 'active'}`"
   ></div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      isActive: false,
+      isReady: false,
       top: "auto",
       left: "auto",
       height: 0,
@@ -30,11 +30,12 @@ export default {
   },
 
   watch: {
-    isActive(status) {
-      this.top = "auto";
-      this.left = "auto";
+    isReady(status) {
+      this.$emit("activate", status);
       if (!status) {
         document.removeEventListener("mousemove", this.moveHandler);
+        this.top = "auto";
+        this.left = "auto";
       }
     },
   },
@@ -53,12 +54,12 @@ export default {
     takeStick() {
       this.setAnimationTransition();
 
-      this.isActive = true;
+      this.isReady = true;
       document.addEventListener("mousemove", this.moveHandler);
     },
     moveHandler(e) {
-      this.top = e.pageY - this.gongTop;
-      this.left = e.pageX - this.rightOffset;
+      this.top = `${e.pageY - this.gongTop}px`;
+      this.left = `${e.pageX - this.rightOffset}px`;
 
       if (
         e.pageY - this.offset / 2 > this.gongBottom ||
@@ -68,7 +69,7 @@ export default {
         // e.pageX + this.offset > this.gongRight
       ) {
         this.setAnimationTransition();
-        this.isActive = false;
+        this.isReady = false;
       }
     },
   },

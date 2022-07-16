@@ -4,8 +4,9 @@
     <div class="gong__leg"></div>
     <div class="gong__beam"></div>
     <div class="gong__beam gong__beam--small"></div>
-    <slot />
+    <slot v-memo />
     <Stick
+      @activate="activate"
       :gongTop="gongTop"
       :gongRight="gongRight"
       :gongBottom="gongBottom"
@@ -23,6 +24,8 @@ export default {
     return {
       gongTop: 0,
       gongRight: 0,
+      gongBottom: 0,
+      gongLeft: 0,
       bodyRight: 0,
     };
   },
@@ -36,6 +39,9 @@ export default {
     },
   },
   methods: {
+    activate(status) {
+      this.$emit("activate", status);
+    },
     setSizes() {
       const { top, right, bottom, left } =
         this.$refs.wrapper.getBoundingClientRect();
