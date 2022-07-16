@@ -1,11 +1,11 @@
 {
   "name": "vue-3",
   "version": "0.1.0",
-  "private": true,
+  "main": "index.js",
   "scripts": {
     "start": "node ./index.js",
     "serve": "vue-cli-service serve",
-    "build": "npm i && vue-cli-service build"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "core-js": "^3.8.3",
