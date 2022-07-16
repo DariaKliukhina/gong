@@ -1,27 +1,21 @@
 <template>
-  <div class="circle animate__circle">
-    <div class="circle__wrapper animate__circle-wrapper">
+  <div class="circle animate-circle">
+    <div class="circle__wrapper animate-circle__wrapper">
       <button @click="setActive" type="button" class="circle__main">
         <span class="circle__body">
-          <span class="circle__blick animate__blick"></span>
+          <span class="circle__blick animate-circle__blick"></span>
         </span>
       </button>
 
-      <audio
-        v-if="isReady"
-        @ended="$emit('end')"
-        ref="audio"
-        controls
-        class="hide"
-      >
+      <audio @ended="end" ref="bang" controls class="hide">
         <source src="./sounds/bang.mp3" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
-      <audio v-else @ended="$emit('end')" ref="audio" controls class="hide">
+
+      <audio @ended="end" ref="click" controls class="hide">
         <source src="./sounds/click.wav" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
-      <!-- <AudioBlock source="./sounds/click.wav" @ended="$emit('end')" /> -->
     </div>
   </div>
 </template>
@@ -30,16 +24,24 @@
 import AudioBlock from "../AudioBlock/AudioBlock.vue";
 export default {
   components: { AudioBlock },
-  props: {
-    isReady: Boolean,
-  },
-  data() {
-    return {};
+  computed: {
+    isReady() {
+      return this.$store.state.isReady;
+    },
+    isActive() {
+      return this.$store.state.isActive;
+    },
   },
   methods: {
+    end() {
+      this.$store.commit("activate", false);
+    },
     setActive() {
-      this.$refs.audio.play();
-      this.$emit("activate");
+      if (!this.isActive) {
+        const audio = this.isReady ? this.$refs.bang : this.$refs.click;
+        audio.play();
+        this.$store.commit("activate", true);
+      }
     },
   },
 };
@@ -123,12 +125,10 @@ export default {
   }
 }
 
-.animate {
-  &__circle {
-    transform-origin: top center;
-  }
+.animate-circle {
+  transform-origin: top center;
 
-  &__circle-wrapper {
+  &__wrapper {
     &::before {
       content: "";
       position: absolute;
@@ -147,28 +147,52 @@ export default {
 }
 
 .active {
+  .animate-small {
+    .animate-circle {
+      animation-name: perspective-small;
+      animation-duration: 0.7s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in-out;
+
+      &__wrapper {
+        &::before {
+          animation-name: scale-small;
+          animation-duration: 1s;
+          animation-iteration-count: 1;
+          animation-timing-function: ease-out;
+        }
+      }
+
+      &__blick {
+        animation-name: blick-small;
+        animation-duration: 1s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in-out;
+      }
+    }
+  }
   .animate {
-    &__circle {
+    .animate-circle {
       animation-name: perspective;
       animation-duration: 3s;
       animation-iteration-count: 1;
       animation-timing-function: ease-in-out;
-    }
 
-    &__circle-wrapper {
-      &::before {
-        animation-name: scale;
-        animation-duration: 1s;
-        animation-iteration-count: 3;
-        animation-timing-function: ease-out;
+      &__wrapper {
+        &::before {
+          animation-name: scale;
+          animation-duration: 1s;
+          animation-iteration-count: 3;
+          animation-timing-function: ease-out;
+        }
       }
-    }
 
-    &__blick {
-      animation-name: blick;
-      animation-duration: 3s;
-      animation-iteration-count: 1;
-      animation-timing-function: ease-in-out;
+      &__blick {
+        animation-name: blick;
+        animation-duration: 3s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-in-out;
+      }
     }
   }
 }

@@ -38,6 +38,34 @@
 
 @keyframes perspective-small {
   0% {
+    transform: translate(-50%) perspective(1000px) rotateX(0);
+  }
+
+  40% {
+    transform: translate(-50%) perspective(1000px) rotateX(-5deg);
+  }
+
+  100% {
+    transform: translate(-50%) perspective(1000px) rotateX(0deg);
+  }
+}
+
+@keyframes perspective-ropes-small {
+  0% {
+    transform: perspective(1000px) rotateX(0);
+  }
+
+  40% {
+    transform: perspective(1000px) rotateX(-5deg);
+  }
+
+  100% {
+    transform: perspective(1000px) rotateX(0deg);
+  }
+}
+
+@keyframes perspective-ropes {
+  0% {
     transform: perspective(1000px) rotateX(0);
   }
 
@@ -81,6 +109,20 @@
 
   80% {
     transform: translate(-50%, -50%) rotate(-13deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-16deg);
+  }
+}
+
+@keyframes blick-small {
+  0% {
+    transform: translate(-50%, -50%) rotate(-16deg);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) rotate(-18deg);
   }
 
   100% {
