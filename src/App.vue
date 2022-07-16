@@ -1,9 +1,7 @@
 <template>
   <div :class="isReady && 'ready'">
     <div class="main-container">
-      <Legs @activate="setReady">
-        <Gong v-memo :isReady="isReady" />
-      </Legs>
+      <Legs />
     </div>
   </div>
 </template>
@@ -13,14 +11,9 @@ import Gong from "./components/Gong/Gong.vue";
 import Legs from "./components/Legs/Legs.vue";
 export default {
   components: { Legs, Gong },
-  data() {
-    return {
-      isReady: false,
-    };
-  },
-  methods: {
-    setReady(status) {
-      this.isReady = status;
+  computed: {
+    isReady() {
+      return this.$store.state.isReady;
     },
   },
 };

@@ -4,12 +4,7 @@
       <span class="gong__ropes-container animate__ropes">
         <span class="gong__ropes"></span>
       </span>
-
-      <Circle
-        @activate="setActive"
-        @end="this.isActive = false"
-        :isReady="isReady"
-      />
+      <Circle />
     </div>
   </div>
 </template>
@@ -18,19 +13,10 @@
 import Circle from "../Circle/Circle.vue";
 export default {
   components: { Circle },
-  props: {
-    isReady: Boolean,
-  },
-  data() {
-    return {
-      isActive: false,
-    };
-  },
-  methods: {
-    setActive() {
-      if (!this.isActive) {
-        this.isActive = true;
-      }
+
+  computed: {
+    isActive() {
+      return this.$store.state.isActive;
     },
   },
 };

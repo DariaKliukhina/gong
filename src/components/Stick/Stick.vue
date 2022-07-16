@@ -18,7 +18,6 @@ export default {
   },
   data() {
     return {
-      isReady: false,
       top: "auto",
       left: "auto",
       height: 0,
@@ -28,14 +27,19 @@ export default {
       transitionDuration: 0.3,
     };
   },
-
+  computed: {
+    isReady() {
+      return this.$store.state.isReady;
+    },
+  },
   watch: {
     isReady(status) {
-      this.$emit("activate", status);
       if (!status) {
         document.removeEventListener("mousemove", this.moveHandler);
         this.top = "auto";
         this.left = "auto";
+      } else {
+        document.addEventListener("mousemove", this.moveHandler);
       }
     },
   },
@@ -53,9 +57,7 @@ export default {
     },
     takeStick() {
       this.setAnimationTransition();
-
-      this.isReady = true;
-      document.addEventListener("mousemove", this.moveHandler);
+      this.$store.commit("prepare", true);
     },
     moveHandler(e) {
       this.top = `${e.pageY - this.gongTop}px`;
@@ -64,12 +66,9 @@ export default {
       if (
         e.pageY - this.offset / 2 > this.gongBottom ||
         e.pageY + this.offset / 2 < this.gongTop
-        //  ||
-        // e.pageX + this.offset < this.gongLeft ||
-        // e.pageX + this.offset > this.gongRight
       ) {
         this.setAnimationTransition();
-        this.isReady = false;
+        this.$store.commit("prepare", false);
       }
     },
   },

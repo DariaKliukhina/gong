@@ -7,17 +7,11 @@
         </span>
       </button>
 
-      <audio
-        v-if="isReady"
-        @ended="$emit('end')"
-        ref="audio"
-        controls
-        class="hide"
-      >
+      <audio v-if="isReady" @ended="end" ref="audio" controls class="hide">
         <source src="./sounds/bang.mp3" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
-      <audio v-else @ended="$emit('end')" ref="audio" controls class="hide">
+      <audio v-else @ended="end" ref="audio" controls class="hide">
         <source src="./sounds/click.wav" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
@@ -30,16 +24,18 @@
 import AudioBlock from "../AudioBlock/AudioBlock.vue";
 export default {
   components: { AudioBlock },
-  props: {
-    isReady: Boolean,
-  },
-  data() {
-    return {};
+  computed: {
+    isReady() {
+      return this.$store.state.isReady;
+    },
   },
   methods: {
+    end() {
+      this.$store.commit("activate", false);
+    },
     setActive() {
       this.$refs.audio.play();
-      this.$emit("activate");
+      this.$store.commit("activate", true);
     },
   },
 };
