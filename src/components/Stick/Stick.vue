@@ -22,7 +22,7 @@ export default {
       left: "auto",
       height: 0,
       width: 0,
-      offset: 100,
+      offset: 50,
       transition: 0,
       transitionDuration: 0.3,
     };
