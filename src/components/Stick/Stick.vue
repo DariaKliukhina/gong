@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="takeStick"
+    @click="() => activateStick(true)"
     ref="stick"
     :style="`top: ${top}; left: ${left}; transition: ${transition}s`"
     :class="`stick cursor ${isReady && 'active'}`"
@@ -10,6 +10,7 @@
 <script>
 export default {
   props: {
+    offset: Number,
     gongTop: Number,
     gongRight: Number,
     gongBottom: Number,
@@ -22,7 +23,6 @@ export default {
       left: "auto",
       height: 0,
       width: 0,
-      offset: 50,
       transition: 0,
       transitionDuration: 0.3,
     };
@@ -46,6 +46,12 @@ export default {
   mounted() {
     this.height = this.$refs.stick.offsetHeight;
     this.width = this.$refs.stick.offsetWidth;
+    document.addEventListener("keyup", (e) => {
+      console.log(e);
+      if (e.key === "Escape") {
+        this.activateStick(false);
+      }
+    });
   },
   methods: {
     setAnimationTransition() {
@@ -55,10 +61,11 @@ export default {
         this.transition = 0;
       }, this.transitionDuration * 100);
     },
-    takeStick() {
+    activateStick(status) {
       this.setAnimationTransition();
-      this.$store.commit("prepare", true);
+      this.$store.commit("prepare", status);
     },
+
     moveHandler(e) {
       this.top = `${e.pageY - this.gongTop}px`;
       this.left = `${e.pageX - this.rightOffset}px`;
@@ -67,8 +74,7 @@ export default {
         e.pageY - this.offset > this.gongBottom ||
         e.pageY + this.offset < this.gongTop
       ) {
-        this.setAnimationTransition();
-        this.$store.commit("prepare", false);
+        this.activateStick(false);
       }
     },
   },
@@ -86,7 +92,6 @@ export default {
   transform: translateY(100%) rotate(170deg);
   cursor: pointer;
   z-index: 10;
-  // transition: .3s;
 
   &.active {
     transform: rotate(-55deg);
@@ -114,7 +119,6 @@ export default {
     left: 0;
     top: 0;
     background-color: #6e5c4f;
-    // transform: perspective(9px) rotateX(-1deg);
     z-index: 0;
   }
 }

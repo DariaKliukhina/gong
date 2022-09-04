@@ -7,12 +7,12 @@
         </span>
       </button>
 
-      <audio @ended="end" ref="bang" controls class="hide">
+      <audio @ended="end" ref="bang" controls class="hide" tabindex="-1">
         <source src="./sounds/bang.mp3" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
 
-      <audio @ended="end" ref="click" controls class="hide">
+      <audio @ended="end" ref="click" controls class="hide" tabindex="-1">
         <source src="./sounds/click.wav" type="audio/mpeg" />
         Your browser does not support the audio tag.
       </audio>
@@ -24,6 +24,11 @@
 import AudioBlock from "../AudioBlock/AudioBlock.vue";
 export default {
   components: { AudioBlock },
+  data() {
+    return {
+      currentAudio: this.$refs.click,
+    };
+  },
   computed: {
     isReady() {
       return this.$store.state.isReady;
@@ -32,14 +37,22 @@ export default {
       return this.$store.state.isActive;
     },
   },
+  watch: {
+    isReady(status) {
+      this.currentAudio = status ? this.$refs.bang : this.$refs.click;
+    },
+  },
+  mounted() {
+    this.currentAudio = this.$refs.click;
+  },
   methods: {
     end() {
       this.$store.commit("activate", false);
     },
     setActive() {
       if (!this.isActive) {
-        const audio = this.isReady ? this.$refs.bang : this.$refs.click;
-        audio.play();
+        // const audio = this.isReady ? this.$refs.bang : this.$refs.click;
+        this.currentAudio?.play();
         this.$store.commit("activate", true);
       }
     },
@@ -75,6 +88,7 @@ export default {
     background-color: $gong-border;
     border: none;
     z-index: 5;
+    cursor: pointer;
   }
 
   &__wrapper {

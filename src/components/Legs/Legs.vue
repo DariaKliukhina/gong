@@ -6,6 +6,7 @@
     <div class="gong__beam gong__beam--small"></div>
     <Gong />
     <Stick
+      :offset="offset"
       :gongTop="gongTop"
       :gongRight="gongRight"
       :gongBottom="gongBottom"
@@ -16,10 +17,14 @@
 </template>
 
 <script>
+import { debounce } from "throttle-debounce";
 import Gong from "../Gong/Gong.vue";
 import Stick from "../Stick/Stick.vue";
 export default {
   components: { Stick, Gong },
+  props: {
+    offset: Number,
+  },
   data() {
     return {
       gongTop: 0,
@@ -31,7 +36,15 @@ export default {
   },
   mounted() {
     this.setSizes();
-    window.addEventListener("resize", this.setSizes);
+    window.addEventListener(
+      "resize",
+      debounce(50, () => {
+        this.resize();
+      })
+    );
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.resize, false);
   },
   computed: {
     rightOffset() {
@@ -39,6 +52,9 @@ export default {
     },
   },
   methods: {
+    resize() {
+      this.setSizes();
+    },
     setSizes() {
       const { top, right, bottom, left } =
         this.$refs.wrapper.getBoundingClientRect();

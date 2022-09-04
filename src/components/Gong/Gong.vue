@@ -52,6 +52,7 @@ export default {
     width: 30%;
     height: 28%;
     z-index: 5;
+    pointer-events: none;
 
     &::before,
     &::after {
