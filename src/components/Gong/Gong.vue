@@ -1,6 +1,10 @@
 <template>
   <div :class="`gong-body ${isActive && 'active'}`">
-    <div :class="`gong-body__main ${isReady ? 'animate' : 'animate-small'}`">
+    <div
+      :class="`gong-body__main ${
+        isAnimationReady ? 'animate' : 'animate-small'
+      }`"
+    >
       <span class="gong-body__ropes-container animate-ropes">
         <span class="gong-body__ropes"></span>
       </span>
@@ -13,7 +17,23 @@
 import Circle from "../Circle/Circle.vue";
 export default {
   components: { Circle },
-
+  data() {
+    return {
+      isAnimationReady: false,
+    };
+  },
+  watch: {
+    isReady(status) {
+      if (!this.isActive) {
+        this.isAnimationReady = status;
+      }
+    },
+    isActive(status) {
+      if (!status) {
+        this.isAnimationReady = this.isReady;
+      }
+    },
+  },
   computed: {
     isActive() {
       return this.$store.state.isActive;

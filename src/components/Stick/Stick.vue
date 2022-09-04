@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="() => activateStick(true)"
+    @click="activateStick"
     ref="stick"
     :style="`top: ${top}; left: ${left}; transition: ${transition}s`"
     :class="`stick cursor ${isReady && 'active'}`"
@@ -35,6 +35,7 @@ export default {
   watch: {
     isReady(status) {
       if (!status) {
+        this.setAnimationTransition();
         document.removeEventListener("mousemove", this.moveHandler);
         this.top = "auto";
         this.left = "auto";
@@ -47,9 +48,8 @@ export default {
     this.height = this.$refs.stick.offsetHeight;
     this.width = this.$refs.stick.offsetWidth;
     document.addEventListener("keyup", (e) => {
-      console.log(e);
       if (e.key === "Escape") {
-        this.activateStick(false);
+        this.$store.commit("prepare", false);
       }
     });
   },
@@ -61,9 +61,9 @@ export default {
         this.transition = 0;
       }, this.transitionDuration * 100);
     },
-    activateStick(status) {
+    activateStick() {
       this.setAnimationTransition();
-      this.$store.commit("prepare", status);
+      this.$store.commit("prepare", true);
     },
 
     moveHandler(e) {
@@ -74,7 +74,7 @@ export default {
         e.pageY - this.offset > this.gongBottom ||
         e.pageY + this.offset < this.gongTop
       ) {
-        this.activateStick(false);
+        this.$store.commit("prepare", false);
       }
     },
   },

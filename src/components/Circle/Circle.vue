@@ -36,6 +36,9 @@ export default {
     isActive() {
       return this.$store.state.isActive;
     },
+    duration() {
+      return this.currentAudio?.duration || 0;
+    },
   },
   watch: {
     isReady(status) {
@@ -51,7 +54,6 @@ export default {
     },
     setActive() {
       if (!this.isActive) {
-        // const audio = this.isReady ? this.$refs.bang : this.$refs.click;
         this.currentAudio?.play();
         this.$store.commit("activate", true);
       }
@@ -89,6 +91,14 @@ export default {
     border: none;
     z-index: 5;
     cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 10px 5px #9b8de2;
+    }
   }
 
   &__wrapper {
@@ -188,7 +198,7 @@ export default {
   .animate {
     .animate-circle {
       animation-name: perspective;
-      animation-duration: 3s;
+      animation-duration: 4s;
       animation-iteration-count: 1;
       animation-timing-function: ease-in-out;
 
@@ -196,14 +206,14 @@ export default {
         &::before {
           animation-name: scale;
           animation-duration: 1s;
-          animation-iteration-count: 3;
+          animation-iteration-count: $animation-iterations;
           animation-timing-function: ease-out;
         }
       }
 
       &__blick {
         animation-name: blick;
-        animation-duration: 3s;
+        animation-duration: 4s;
         animation-iteration-count: 1;
         animation-timing-function: ease-in-out;
       }

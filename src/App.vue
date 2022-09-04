@@ -1,6 +1,7 @@
 <template>
   <div :class="`${isReady && 'ready'} root`" :style="`padding: ${offset}px 0`">
     <div class="wrapper">
+      <div class="backdrop" @click="deactivate"></div>
       <div class="main-container">
         <Legs :offset="offset" />
       </div>
@@ -23,6 +24,11 @@ export default {
       return this.$store.state.isReady;
     },
   },
+  methods: {
+    deactivate() {
+      this.$store.commit("prepare", false);
+    },
+  },
 };
 </script>
 
@@ -39,6 +45,7 @@ export default {
 .wrapper {
   background-color: $main-bg;
   height: 100%;
+  position: relative;
 }
 .main-container {
   width: 100%;
@@ -50,5 +57,13 @@ export default {
   justify-content: center;
   align-items: center;
   padding: 20px;
+}
+
+.backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0
 }
 </style>
