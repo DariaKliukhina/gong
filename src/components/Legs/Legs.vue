@@ -12,6 +12,7 @@
       :gongBottom="gongBottom"
       :gongLeft="gongLeft"
       :rightOffset="rightOffset"
+      :bodyPosition="bodyPosition"
     />
   </section>
 </template>
@@ -31,7 +32,7 @@ export default {
       gongRight: 0,
       gongBottom: 0,
       gongLeft: 0,
-      bodyRight: 0,
+      bodyPosition: {},
     };
   },
   mounted() {
@@ -48,7 +49,7 @@ export default {
   },
   computed: {
     rightOffset() {
-      return this.bodyRight - this.gongRight;
+      return this.bodyPosition.right - this.gongRight;
     },
   },
   methods: {
@@ -63,8 +64,8 @@ export default {
       this.gongBottom = bottom;
       this.gongLeft = left;
 
-      const { right: bodyRight } = document.body.getBoundingClientRect();
-      this.bodyRight = bodyRight;
+      const bodyPosition = document.body.getBoundingClientRect();
+      this.bodyPosition = bodyPosition;
     },
   },
 };

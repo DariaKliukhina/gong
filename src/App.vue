@@ -16,7 +16,7 @@ export default {
   components: { Legs, Gong },
   data() {
     return {
-      offset: 40,
+      offset: 20,
     };
   },
   computed: {
@@ -35,6 +35,25 @@ export default {
 <style lang="scss" scoped>
 .root {
   height: 100vh;
+
+  &::before,
+  &::after {
+    content: "";
+    width: 20px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ab86d5;
+    opacity: 0.5;
+    display: block;
+    z-index: 1;
+  }
+
+  &::after {
+    left: auto;
+    right: 0;
+  }
 }
 .ready {
   cursor: none;
@@ -64,6 +83,6 @@ export default {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0
+  left: 0;
 }
 </style>

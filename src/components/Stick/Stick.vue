@@ -16,6 +16,7 @@ export default {
     gongBottom: Number,
     gongLeft: Number,
     rightOffset: Number,
+    bodyPosition: Object,
   },
   data() {
     return {
@@ -69,10 +70,9 @@ export default {
     moveHandler(e) {
       this.top = `${e.pageY - this.gongTop}px`;
       this.left = `${e.pageX - this.rightOffset}px`;
-
       if (
-        e.pageY - this.offset > this.gongBottom ||
-        e.pageY + this.offset < this.gongTop
+        e.pageY < this.bodyPosition.top + this.offset ||
+        e.pageY > this.bodyPosition.bottom - this.offset
       ) {
         this.$store.commit("prepare", false);
       }
