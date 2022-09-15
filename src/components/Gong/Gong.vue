@@ -2,7 +2,7 @@
   <div :class="`gong-body ${isActive && 'active'}`">
     <div
       :class="`gong-body__main ${
-        isAnimationReady ? 'animate' : 'animate-small'
+        isAnimationReady || !isDesktop ? 'animate' : 'animate-small'
       }`"
     >
       <span class="gong-body__ropes-container animate-ropes">

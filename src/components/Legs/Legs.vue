@@ -26,6 +26,7 @@ export default {
   components: { Stick, Gong },
   props: {
     offset: Number,
+    isDesktop: Boolean,
   },
   data() {
     return {
@@ -49,9 +50,6 @@ export default {
     window.removeEventListener("resize", this.resize, false);
   },
   computed: {
-    isDesktop() {
-      return this.$store.getters.isDesktopMq;
-    },
     rightOffset() {
       return this.bodyPosition.right - this.gongRight;
     },
@@ -77,10 +75,10 @@ export default {
 
 <style lang="scss" scoped>
 .gong {
-  max-height: 800px;
+  max-height: 85%;
   min-height: 400px;
   width: 100%;
-  max-width: 700px;
+  max-width: 650px;
   aspect-ratio: 1/1;
   position: relative;
   display: flex;
@@ -97,6 +95,9 @@ export default {
     top: 0;
     left: 40px;
 
+    @media #{$min-width-tablet} {
+      width: $leg-width-tablet;
+    }
     @media #{$min-width-desktop} {
       width: $leg-width-desktop;
     }

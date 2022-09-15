@@ -1,9 +1,12 @@
 <template>
-  <div :class="`${isReady && 'ready'} root`" :style="`padding: ${offset}px 0`">
+  <div
+    :class="`${(isReady || !isDesktop) && 'ready'} root`"
+    :style="`padding: ${offset}px 0`"
+  >
     <div class="wrapper">
       <div class="backdrop" @click="deactivate"></div>
       <div class="main-container">
-        <Legs :offset="offset" />
+        <Legs :offset="offset" :isDesktop="isDesktop" />
       </div>
     </div>
   </div>
@@ -33,6 +36,9 @@ export default {
     window.removeEventListener("resize", this.resize, false);
   },
   computed: {
+    isDesktop() {
+      return this.$store.getters.isDesktopMq;
+    },
     isReady() {
       return this.$store.state.isReady;
     },
@@ -80,9 +86,11 @@ export default {
   }
 }
 .ready {
-  cursor: none;
-  * {
+  @media #{$min-width-desktop} {
     cursor: none;
+    * {
+      cursor: none;
+    }
   }
 }
 

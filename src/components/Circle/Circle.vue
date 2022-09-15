@@ -73,7 +73,9 @@ export default {
 
 .ready {
   .circle__main {
-    cursor: none;
+    @media #{$min-width-desktop} {
+      cursor: none;
+    }
   }
 }
 
