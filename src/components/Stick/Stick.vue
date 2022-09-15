@@ -71,8 +71,8 @@ export default {
       this.top = `${e.pageY - this.gongTop}px`;
       this.left = `${e.pageX - this.rightOffset}px`;
       if (
-        e.pageY < this.bodyPosition.top + this.offset ||
-        e.pageY > this.bodyPosition.bottom - this.offset
+        e.pageY < this.bodyPosition.top + this.offset * 2 ||
+        e.pageY > this.bodyPosition.bottom - this.offset * 2
       ) {
         this.$store.commit("prepare", false);
       }

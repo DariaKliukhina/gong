@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { debounce } from "throttle-debounce";
 import Gong from "./components/Gong/Gong.vue";
 import Legs from "./components/Legs/Legs.vue";
 export default {
@@ -19,6 +20,17 @@ export default {
       offset: 20,
     };
   },
+  mounted() {
+    window.addEventListener(
+      "resize",
+      debounce(50, () => {
+        this.resize();
+      })
+    );
+  },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.resize, false);
+  },
   computed: {
     isReady() {
       return this.$store.state.isReady;
@@ -27,6 +39,9 @@ export default {
   methods: {
     deactivate() {
       this.$store.commit("prepare", false);
+    },
+    resize() {
+      this.$store.dispatch("update", window.innerWidth);
     },
   },
 };
@@ -46,13 +61,21 @@ export default {
     left: 0;
     background-color: #ab86d5;
     opacity: 0.5;
-    display: block;
     z-index: 1;
+    display: none;
+
+    @media #{$min-width-desktop} {
+      display: block;
+    }
   }
 
   &::after {
     left: auto;
     right: 0;
+  }
+
+  @media #{$max-width-desktop} {
+    padding: 0 !important;
   }
 }
 .ready {

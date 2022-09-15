@@ -4,8 +4,9 @@
     <div class="gong__leg"></div>
     <div class="gong__beam"></div>
     <div class="gong__beam gong__beam--small"></div>
-    <Gong />
+    <Gong isDesktop="isDesktop" />
     <Stick
+      v-if="isDesktop"
       :offset="offset"
       :gongTop="gongTop"
       :gongRight="gongRight"
@@ -48,6 +49,9 @@ export default {
     window.removeEventListener("resize", this.resize, false);
   },
   computed: {
+    isDesktop() {
+      return this.$store.getters.isDesktopMq;
+    },
     rightOffset() {
       return this.bodyPosition.right - this.gongRight;
     },

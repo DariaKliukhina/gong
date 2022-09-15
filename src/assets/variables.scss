@@ -14,3 +14,4 @@ $tablet: 540px;
 $desktop: 1150px;
 $min-width-tablet: "(min-width: #{$tablet})";
 $min-width-desktop: "(min-width: #{$desktop})";
+$max-width-desktop: "(max-width: #{$desktop})";
