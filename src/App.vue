@@ -85,17 +85,19 @@ export default {
     cursor: none;
   }
 }
+
 .wrapper {
   background-color: $main-bg;
   min-height: 100%;
   position: relative;
+  display: flex;
 }
+
 .main-container {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  min-height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
