@@ -8,7 +8,7 @@
       <span class="gong-body__ropes-container animate-ropes">
         <span class="gong-body__ropes"></span>
       </span>
-      <Circle />
+      <Circle :isDesktop="isDesktop" />
     </div>
   </div>
 </template>
@@ -17,6 +17,9 @@
 import Circle from "../Circle/Circle.vue";
 export default {
   components: { Circle },
+  props: {
+    isDesktop: Boolean,
+  },
   data() {
     return {
       isAnimationReady: false,

@@ -9,8 +9,8 @@ const store = createStore({
       isReady: false,
       isActive: false,
       mediaQuery: {
-        value: 'desktop',
-        mqKey: 'lg',
+        value: 'mobile',
+        mqKey: 'sm',
         list: [
           {
             key: 'sm',
@@ -50,7 +50,6 @@ const store = createStore({
       state.isReady = payload
     },
     updateMq(state, payload) {
-      console.log('success');
       state.mediaQuery.value = payload.currentMediaValue
       state.mediaQuery.mqKey = payload.currentMediaKey
     },

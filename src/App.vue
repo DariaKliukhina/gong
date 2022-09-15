@@ -21,6 +21,7 @@ export default {
     };
   },
   mounted() {
+    this.resize();
     window.addEventListener(
       "resize",
       debounce(50, () => {

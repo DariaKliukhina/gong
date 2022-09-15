@@ -4,7 +4,7 @@
     <div class="gong__leg"></div>
     <div class="gong__beam"></div>
     <div class="gong__beam gong__beam--small"></div>
-    <Gong isDesktop="isDesktop" />
+    <Gong :isDesktop="isDesktop" />
     <Stick
       v-if="isDesktop"
       :offset="offset"

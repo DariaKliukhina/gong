@@ -24,9 +24,12 @@
 import AudioBlock from "../AudioBlock/AudioBlock.vue";
 export default {
   components: { AudioBlock },
+  props: {
+    isDesktop: Boolean,
+  },
   data() {
     return {
-      currentAudio: this.$refs.click,
+      currentAudio: null,
     };
   },
   computed: {
@@ -44,9 +47,12 @@ export default {
     isReady(status) {
       this.currentAudio = status ? this.$refs.bang : this.$refs.click;
     },
+    isDesktop(status) {
+      this.currentAudio = status ? this.$refs.click : this.$refs.bang;
+    },
   },
   mounted() {
-    this.currentAudio = this.$refs.click;
+    this.currentAudio = this.isDesktop ? this.$refs.click : this.$refs.bang;
   },
   methods: {
     end() {
