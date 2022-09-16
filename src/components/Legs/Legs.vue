@@ -1,20 +1,26 @@
 <template>
-  <section ref="wrapper" class="gong">
-    <div class="gong__leg"></div>
-    <div class="gong__leg"></div>
-    <div class="gong__beam"></div>
-    <div class="gong__beam gong__beam--small"></div>
-    <Gong :isDesktop="isDesktop" />
-    <Stick
-      v-if="isDesktop"
-      :offset="offset"
-      :gongTop="gongTop"
-      :gongRight="gongRight"
-      :gongBottom="gongBottom"
-      :gongLeft="gongLeft"
-      :rightOffset="rightOffset"
-      :bodyPosition="bodyPosition"
-    />
+  <section ref="wrapper" class="container">
+    <svg viewBox="0 0 400 400" class="frame">
+      <rect width="400" height="400" fill="transparent" />
+    </svg>
+
+    <div class="gong">
+      <div class="gong__leg"></div>
+      <div class="gong__leg"></div>
+      <div class="gong__beam"></div>
+      <div class="gong__beam gong__beam--small"></div>
+      <Gong :isDesktop="isDesktop" />
+      <Stick
+        v-if="isDesktop"
+        :offset="offset"
+        :gongTop="gongTop"
+        :gongRight="gongRight"
+        :gongBottom="gongBottom"
+        :gongLeft="gongLeft"
+        :rightOffset="rightOffset"
+        :bodyPosition="bodyPosition"
+      />
+    </div>
   </section>
 </template>
 
@@ -74,23 +80,40 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gong {
+.container {
   height: 95%;
   max-height: 400px;
   max-width: 95%;
   aspect-ratio: 1/1;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding-top: 40px;
 
   @media #{$min-width-desktop} {
     max-width: 70%;
     height: 75%;
     max-height: 650px;
   }
+
+  .frame {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.gong {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-top: 40px;
+  z-index: 1;
+  top: 0;
+  left: 0;
 
   &__leg {
     width: $leg-width;
@@ -155,7 +178,7 @@ export default {
     margin-bottom: 14px;
     margin-left: 50%;
     transform: translateX(-50%);
-
+    z-index: 6;
     @media #{$min-width-desktop} {
       height: $leg-width-desktop;
     }
