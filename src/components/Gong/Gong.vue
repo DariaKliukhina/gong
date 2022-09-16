@@ -103,7 +103,7 @@ export default {
         left: 5%;
       }
       @media #{$min-width-desktop} {
-        left: 12%;
+        left: 9%;
       }
     }
 
@@ -114,7 +114,7 @@ export default {
         right: 5%;
       }
       @media #{$min-width-desktop} {
-        right: 12%;
+        right: 9%;
       }
     }
   }
