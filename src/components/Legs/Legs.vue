@@ -1,8 +1,8 @@
 <template>
   <section ref="wrapper" class="container">
-    <svg viewBox="0 0 400 400" class="frame">
-      <rect width="400" height="400" fill="transparent" />
-    </svg>
+    <div class="frame-wrapper">
+      <img src="./images/frame.jpg" alt="frame" />
+    </div>
 
     <div class="gong">
       <div class="gong__leg"></div>
@@ -84,8 +84,8 @@ export default {
   height: 95%;
   max-height: 400px;
   max-width: 95%;
-  aspect-ratio: 1/1;
   position: relative;
+  display: flex;
 
   @media #{$min-width-desktop} {
     max-width: 70%;
@@ -93,12 +93,18 @@ export default {
     max-height: 650px;
   }
 
-  .frame {
+  .frame-wrapper {
     height: 100%;
-    width: auto;
     max-width: 100%;
     pointer-events: none;
     z-index: 0;
+    position: relative;
+
+    * {
+      opacity: 0;
+      height: 100%;
+      width: auto;
+    }
   }
 }
 
