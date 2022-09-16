@@ -1,6 +1,8 @@
 <template>
   <div class="circle animate-circle">
     <div class="circle__wrapper animate-circle__wrapper">
+      <img src="../../assets/images/frame.jpg" alt="frame" class="frame" />
+
       <button @click="setActive" type="button" class="circle__main">
         <span class="circle__body">
           <span class="circle__blick animate-circle__blick"></span>
@@ -89,8 +91,14 @@ export default {
   top: 18%;
   transform: translate(-50%);
 
+  .frame {
+    width: 100%;
+    height: auto;
+    opacity: 0;
+  }
+
   &__main {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     border-radius: 50%;
@@ -98,6 +106,9 @@ export default {
     background-color: $gong-border;
     border: none;
     z-index: 5;
+    top: 0;
+    left: 0;
+    z-index: 1;
     cursor: pointer;
     &:focus {
       outline: none;

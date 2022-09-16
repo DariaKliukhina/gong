@@ -1,7 +1,7 @@
 <template>
   <section ref="wrapper" class="container">
     <div class="frame-wrapper">
-      <img src="./images/frame.jpg" alt="frame" />
+      <img src="../../assets/images/frame.jpg" alt="frame" />
     </div>
 
     <div class="gong">
