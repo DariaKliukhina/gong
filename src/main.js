@@ -25,7 +25,7 @@ const store = createStore({
           {
             key: 'lg',
             value: 'desktop',
-            breakpoint: 1150,
+            breakpoint: 1180,
           },
         ],
       }

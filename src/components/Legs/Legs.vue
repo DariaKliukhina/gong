@@ -75,10 +75,9 @@ export default {
 
 <style lang="scss" scoped>
 .gong {
-  max-height: 85%;
-  min-height: 400px;
-  width: 100%;
-  max-width: 650px;
+  height: 95%;
+  max-height: 400px;
+  max-width: 95%;
   aspect-ratio: 1/1;
   position: relative;
   display: flex;
@@ -86,6 +85,12 @@ export default {
   align-items: stretch;
   justify-content: flex-start;
   padding-top: 40px;
+
+  @media #{$min-width-desktop} {
+    max-width: 70%;
+    height: 75%;
+    max-height: 650px;
+  }
 
   &__leg {
     width: $leg-width;

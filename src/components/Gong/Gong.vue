@@ -89,6 +89,9 @@ export default {
       z-index: 5;
 
       @media #{$min-width-tablet} {
+        bottom: 5%;
+      }
+      @media #{$min-width-desktop} {
         bottom: 10%;
       }
     }
@@ -97,6 +100,9 @@ export default {
       left: 5%;
 
       @media #{$min-width-tablet} {
+        left: 5%;
+      }
+      @media #{$min-width-desktop} {
         left: 12%;
       }
     }
@@ -105,6 +111,9 @@ export default {
       right: 5%;
 
       @media #{$min-width-tablet} {
+        right: 5%;
+      }
+      @media #{$min-width-desktop} {
         right: 12%;
       }
     }
